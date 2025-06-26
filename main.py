@@ -4,34 +4,66 @@ import random
 
 from haunted_mouse import perform_mouse_haunting
 from ghost_typer import perform_typing_haunting
+from haunted_visual import perform_visual_haunting
+from haunted_error import perform_haunted_error
+from haunted_audio import perform_audio_haunting
 
 # -- GLOBAL CONFIGS -- #
 
 MIN_OVERALL_DELAY_SECONDS = 5   # Min seconds between ANY major haunting event
 MAX_OVERALL_DELAY_SECONDS = 30  # Max seconds between ANY major haunting event
 
-MOUSE_EVENT_PROBABILITY = 0.8  # 80% chance to perform a mouse event
-TYPING_EVENT_PROBABILITY = 0.2 # 20% chance to perform a typing event (These probabilities should sum to 1.0)
+# --- Overall Haunting Probability ---
+
+MOUSE_EVENT_PROBABILITY = 0.3  
+TYPING_EVENT_PROBABILITY = 0.2 
+VISUAL_GLITCH_PROBABILITY = 0.2 
+ERROR_PROBABILITY = 0.2 
+AUDIO_PROBABILITY = 0.1
 
 screen_width, screen_height = pyautogui.size()
-print(f"Screen Resolution: {screen_width}x{screen_height}")
 print("\n--- Starting Haunting ---")
 print("Press Ctrl+C in the terminal to terminate.")
 print("------------------------------------------\n")
 
 # -- MAIN LOOP -- #
 
-time.sleep(10)
+time.sleep(10) # Calm before the storm
 
 try:
     while True:
-        if random.random() < MOUSE_EVENT_PROBABILITY:
+
+        choice = random.random()
+        current_prob = 0.0
+
+        current_prob += MOUSE_EVENT_PROBABILITY
+
+        if choice < current_prob:
+            # Perform mouse haunting
             perform_mouse_haunting(screen_width, screen_height)
-        else:
+        elif choice < (current_prob + TYPING_EVENT_PROBABILITY):
+            # Perform typing haunting
             perform_typing_haunting()
+        elif choice < (current_prob + VISUAL_GLITCH_PROBABILITY):
+            # Perform visual haunting
+            perform_visual_haunting()
+        elif choice < (current_prob + ERROR_PROBABILITY):
+            perform_haunted_error()
+        else:
+            perform_audio_haunting()
+            
         delay_between_events = random.uniform(MIN_OVERALL_DELAY_SECONDS, MAX_OVERALL_DELAY_SECONDS)
         time.sleep(delay_between_events)
+
 except KeyboardInterrupt:
-    print("\n\Haunting ceased.")
+    print("\n\Haunting Stopped.")
+    # Ensure any playing music is stopped on exit
+    try:
+        import pygame
+        if pygame.mixer.get_init():
+            pygame.mixer.music.stop()
+            pygame.mixer.quit() # Clean up mixer resources
+    except:
+        pass
 except Exception as e:
-    print(f"\n\nAn unexpected error occurred: {e}")
+    print(f"\n\nAn error occured: {e}")
