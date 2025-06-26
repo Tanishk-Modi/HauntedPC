@@ -10,16 +10,16 @@ from haunted_audio import perform_audio_haunting
 
 # -- GLOBAL CONFIGS -- #
 
-MIN_OVERALL_DELAY_SECONDS = 5   # Min seconds between ANY major haunting event
-MAX_OVERALL_DELAY_SECONDS = 30  # Max seconds between ANY major haunting event
+MIN_OVERALL_DELAY_SECONDS = 40   # Min seconds between ANY major haunting event
+MAX_OVERALL_DELAY_SECONDS = 130  # Max seconds between ANY major haunting event
 
 # --- Overall Haunting Probability ---
 
-MOUSE_EVENT_PROBABILITY = 0.3  
-TYPING_EVENT_PROBABILITY = 0.2 
-VISUAL_GLITCH_PROBABILITY = 0.2 
-ERROR_PROBABILITY = 0.2 
-AUDIO_PROBABILITY = 0.1
+MOUSE_EVENT_PROBABILITY = 0.55  
+TYPING_EVENT_PROBABILITY = 0.10 
+VISUAL_GLITCH_PROBABILITY = 0.15 
+ERROR_PROBABILITY = 0.10 
+AUDIO_PROBABILITY = 0.10
 
 screen_width, screen_height = pyautogui.size()
 print("\n--- Starting Haunting ---")

@@ -105,5 +105,3 @@ def perform_audio_haunting():
             volume_control.SetMute(original_mute_state, None)
             print("[AUDIO] Restored original volume settings.")
         print("[AUDIO] Audio haunting finished.")
-
-perform_audio_haunting()

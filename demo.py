@@ -1,3 +1,5 @@
+# This file is to quickly display the features
+
 import pyautogui    
 import time         
 
